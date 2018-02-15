@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+	<room name ="The Pub" keyword = "thepub">
+		<description>This is a place to meet shady people</description>
+		<item name="Beer">This is a drink.</item>
+		<exits>-,thesquare,-,-,-,</exits>
+	</room>
+	<room name ="The Square" keyword = "thesquare">
+		<description>This is another place to meet shady people</description>
+		<item name="sword">This is sharp and pointy</item>
+		<exits>thepub, -,-,-,-,-</exits>
+	</room>
+</rooms>
