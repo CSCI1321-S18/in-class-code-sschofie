@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+  <room name="The Drunken Oyster">
+    <description>This is a place to meet shady people.</description>
+    <exits>-1,1,-1,-1,-1,-1</exits>
+  </room>
+  <room name="The Square">
+    <description>This is the center of Quahog.</description>
+    <item name="ray gun">This was left behind by Stewie</item>
+    <exits>0,-1,2,-1,-1,-1</exits>
+  </room>
+  <room name="The Griffin Family Home">
+    <description>This is the Griffin Family Home.</description>
+    <item name="Safe">This is a safe place to leave the ray gun.</item>
+    <exits>0,1,-1,-1,-1,-1</exits>
+  </room>
+</rooms>
