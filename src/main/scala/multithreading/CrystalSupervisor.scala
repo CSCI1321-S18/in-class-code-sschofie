@@ -20,6 +20,11 @@ class CrystalSupervisor(width: Int, height: Int, pr: PixelReader, pw: PixelWrite
   }
   import CrystalSupervisor._
   def receive = {
+    case CanMoveTo(x, y) =>
+      val allowed = x >=0 && x<width && y>=0 && y<height && pr.getArgb(x, y)==0 
+      sender ! allowed
+    case SetPixel(x, y) =>
+      pw.setColor(x, y, Color.Tomato)
     case m =>
       println(s"Got a message supervisor doesn't process: $m")
   }

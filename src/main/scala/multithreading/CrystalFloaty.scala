@@ -23,11 +23,11 @@ class CrystalFloaty extends Actor {
             if(b){
               self ! SetPosition(nx, ny)
             }else{
-          //context.parent ! CrystalSupervisor(
+          context.parent ! CrystalSupervisor.SetPixel(x, y)
             }
-      }
-    case m =>
-      println(s"Got a message floaty doesn't process: $m")
+      
+        case m =>
+          println(s"Got a message floaty doesn't process: $m")
   }
 }
 

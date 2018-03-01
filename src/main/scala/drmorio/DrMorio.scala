@@ -10,13 +10,12 @@ import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
 
 
-object DrMorio extends JFXApp {
+object DrMorio extends UnicastRemoteObject with JFXApp with RemoteClient {
   stage = new JFXApp.PrimaryStage {
     title = "Dr. Morio"
     scene = new Scene(400, 600) {
       val canvas = new Canvas(400, 600)
       val gc = canvas.graphicsContext2D
-      val grid = new Grid
       content = canvas
       
       onKeyPressed = (e: KeyEvent) => {
@@ -40,16 +39,7 @@ object DrMorio extends JFXApp {
         }
       }
       
-      var lastTime = 0L
-      val timer = AnimationTimer(time => {
-        if(lastTime > 0) {
-          val delay = (time - lastTime)/1e9
-          grid.update(delay)
-        }
-        lastTime = time
-        Renderer.render(gc, grid)
-      })
-      timer.start()
+     
     }
   }
 }
