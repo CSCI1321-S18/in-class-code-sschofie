@@ -8,6 +8,11 @@ class Grid extends UnicastRemoteObject with RemoteGrid {
    object Mode extends Enumeration {
     val Normal, Falling, Paused = Value
   }
+   
+   def buildPassable: PassableGrid = {
+     val drawEntities = currentPill::entities
+     new PassableGrid(drawEntites.flatMap(_.locsAndColors), _.nextPill.locsAndColors)
+   }
   
   // 8 by 16
   private var _currentPill = new Pill(this)

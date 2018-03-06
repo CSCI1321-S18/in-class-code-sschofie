@@ -8,14 +8,34 @@ import scalafx.scene.canvas.Canvas
 import scalafx.animation.AnimationTimer
 import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
+import java.rmi.server.UnicastRemoteObject
 
 
 object DrMorio extends UnicastRemoteObject with JFXApp with RemoteClient {
+   val canvas = new Canvas(400, 600)
+   val gc = canvas.graphicsContext2D
+   
+   val server = java.rmi.Naming.lookup("rmi://localhost:1099/DrMorioServer") match{
+     case rs: RemoteServer => rs
+   }
+   val grid = server.connect(this)
+   
+  def drawGrids(myGrid: PassableGrid, theirGrid: PassableGrid): Unit = {
+     Platform.runLater{
+       Renderer.render(gc, myGrid)
+     }
+  }
+   
+   def renderMessage(msg: String): Unit = {
+     Platform.runLater{
+       Renderer.renderMessage(gc, msg)
+     }
+   }
+  
   stage = new JFXApp.PrimaryStage {
     title = "Dr. Morio"
     scene = new Scene(400, 600) {
-      val canvas = new Canvas(400, 600)
-      val gc = canvas.graphicsContext2D
+      
       content = canvas
       
       onKeyPressed = (e: KeyEvent) => {

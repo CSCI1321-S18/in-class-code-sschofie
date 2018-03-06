@@ -10,18 +10,21 @@ object DrMorioShape extends Enumeration {
 object Renderer {
   val blockSize = 30
 
-  def render(gc: GraphicsContext, grid: Grid): Unit = {
+  def render(gc: GraphicsContext, grid: PassableGrid): Unit = {
     gc.fill = Color.Black
     gc.fillRect(0, 0, 1000, 1000)
-    for (entity <- grid.currentPill :: grid.entities) {
+    for (entity <- grid.locsAndColors) {
       drawEntity(entity, gc)
     }
+    for(block <- grid.nextPill){
     drawEntity(grid.nextPill, gc, 6*blockSize)
+    }
   }
 
-  def drawEntity(entity: drmorio.Entity, gc: scalafx.scene.canvas.GraphicsContext, offsetX: Double = 0.0) = {
-    val shapeType = entity.shape
-    for ((x, y, colorEnum) <- entity.locsAndColors) {
+  def drawEntity(entity: (Int, Int, Entity.Colors.Value),
+      gc: scalafx.scene.canvas.GraphicsContext, offsetX: Double = 0.0) = {
+    //val shapeType = entity.shape
+    val (x, y, colorEnum) =entity 
       val color = colorEnum match {
         case Entity.Colors.Red => Color.Red
         case Entity.Colors.Yellow => Color.Yellow
@@ -36,6 +39,8 @@ object Renderer {
           gc.fillOval(x * blockSize + offsetX, y * blockSize,
             blockSize, blockSize)
       }
-    }
+  }
+  def renderMessage(gc: GraphicsContext, msg: String): Unit ={
+    gc.fillText(msg,40, 100)
   }
 }
