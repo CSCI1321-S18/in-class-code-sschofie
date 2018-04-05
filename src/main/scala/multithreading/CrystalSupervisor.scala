@@ -36,4 +36,5 @@ class CrystalSupervisor(width: Int, height: Int, pr: PixelReader, pw: PixelWrite
  */
 object CrystalSupervisor {
   case class CanMoveTo(x:Int, y:Int)
+  case class SetPixel(x: Int, y: Int)
 }

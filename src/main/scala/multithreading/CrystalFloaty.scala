@@ -18,14 +18,14 @@ class CrystalFloaty extends Actor {
       val nx = x+util.Random.nextInt(3)-1 
       val ny = y+util.Random.nextInt(3)-1  
       val f = context.parent ? CrystalSupervisor.CanMoveTo(nx, ny) //asking if safe to move to new position?
-      f.foreach(m => match {
+      f.foreach(m => m match {
         case b: Boolean =>
             if(b){
               self ! SetPosition(nx, ny)
             }else{
           context.parent ! CrystalSupervisor.SetPixel(x, y)
             }
-      
+      })
         case m =>
           println(s"Got a message floaty doesn't process: $m")
   }
