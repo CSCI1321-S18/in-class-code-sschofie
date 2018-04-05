@@ -1,19 +1,19 @@
 package drmorio
 
-import java.rmi.Remote
 import java.rmi.server.UnicastRemoteObject
 
-
 class Grid extends UnicastRemoteObject with RemoteGrid {
-   object Mode extends Enumeration {
+  object Mode extends Enumeration {
     val Normal, Falling, Paused = Value
   }
-   
-   def buildPassable: PassableGrid = {
-     val drawEntities = currentPill::entities
-     new PassableGrid(drawEntites.flatMap(_.locsAndColors), _.nextPill.locsAndColors)
-   }
   
+  def buildPassable: PassableGrid = {
+    val drawEntities = currentPill::entities
+    new PassableGrid(drawEntities.flatMap(e => e.locsAndColors.map {
+      case (x, y, col) => (x, y, col, e.shape)
+    }), _nextPill.locsAndColors.map {case (x, y, col) => (x, y, col, _nextPill.shape) })
+  }
+
   // 8 by 16
   private var _currentPill = new Pill(this)
   private var _nextPill = new Pill(this)

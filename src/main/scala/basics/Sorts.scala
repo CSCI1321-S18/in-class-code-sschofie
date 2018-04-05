@@ -25,6 +25,34 @@ object Sorts {
     }
   }
   
+ // def mergeSort(): ??? = {
+ //see book   
+ // }
+  
+ //bad version for sorted input and smaller arrays
+  def quickSort[A](lst: List[A])(lt: (A, A) => Boolean): List[A] = lst match{
+    case Nil => lst
+    case h :: Nil => lst
+    case pivot :: t =>
+      val (less, greater) = t.partition(x => lt(x, pivot))
+      quickSort(less)(lt) ::: (pivot :: quickSort(greater)(lt))
+  }
+  //good version, see book for better
+  def quickSort[A](arr: Array[A])(lt: (A, A) => Boolean): Unit = {
+    def helper(start: Int, end: Int): Unit = {
+      if(end - start < 10) insertionHelper(arr, start, end) else {
+        val pIndex = util.Random.nextInt(end-start)+start
+        val temp = arr(start)
+        arr(start) = arr(pIndex)
+        arr(pIndex) = temp
+        var low = start + 1 
+        var hight = end -1
+      }
+    }
+    helper(0, arr.length)
+  }
+  
+  
   def main(args: Array[String]): Unit = {
     val nums = Array.fill(10)(util.Random.nextInt(100))
     println(nums.mkString(", "))
